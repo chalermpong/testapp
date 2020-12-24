@@ -1,15 +1,17 @@
-package com.chalermpong.testapp
+package com.chalermpong.myapp2
 
-import android.content.*
+import android.app.Service
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.*
-import android.util.AttributeSet
 import android.util.Log
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,12 +37,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             if (mBound) {
                 // Create and send a message to the service, using a supported 'what' value
-                val msg: Message = Message.obtain(null, 1, 0, 0)
+                val msg: Message = Message.obtain(null, 2, 0, 0)
                 try {
                     mService?.send(msg)
                 } catch (e: RemoteException) {
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // Bind to LocalService
-        Intent(this, LocalService::class.java).also { intent ->
+        Intent("com.chalermpong.testapp.LocalService").also { intent ->
+            intent.component = ComponentName("com.chalermpong.testapp", "com.chalermpong.testapp.LocalService")
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
     }
@@ -77,26 +78,6 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    class MyTextView @JvmOverloads constructor(
-            context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-    ) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr) {
-
-        override fun onAttachedToWindow() {
-            super.onAttachedToWindow()
-            Log.d("MyTextView", "MyTextView attach ${this.hashCode()}")
-        }
-
-        override fun onDetachedFromWindow() {
-            super.onDetachedFromWindow()
-            Log.d("MyTextView", "MyTextView detach ${this.isLaidOut} ${this.hashCode()}")
-        }
-
-        override fun layout(l: Int, t: Int, r: Int, b: Int) {
-            super.layout(l, t, r, b)
-            Log.d("MyTextView", "MyTextView layout ${this.hashCode()}")
         }
     }
 }

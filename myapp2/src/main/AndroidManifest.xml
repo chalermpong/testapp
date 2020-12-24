@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chalermpong.testapp">
+    package="com.chalermpong.myapp2">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApp">
-        <service android:name=".LocalService" android:process=":remote">
-            <intent-filter>
-                <action android:name="com.chalermpong.testapp.LocalService"/>
-            </intent-filter>
-        </service>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         // Bind to LocalService
         Intent("com.chalermpong.testapp.LocalService").also { intent ->
             intent.component = ComponentName("com.chalermpong.testapp", "com.chalermpong.testapp.LocalService")
-            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+            //bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
     }
 
